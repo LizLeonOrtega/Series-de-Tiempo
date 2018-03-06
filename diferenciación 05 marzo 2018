@@ -1,0 +1,24 @@
+########### DEFERENCIACIÓN
+
+install.packages("foreign")
+library(readxl)
+
+diferencias <- read_excel("C:/Users/Sala-D9/Desktop/Series de tiempo/differences.xlsx")
+diferencias.ts <- ts(diferencias)
+
+plot(diferencias.ts, ylab="Serie", xlab="Periodo", col="navy")
+plot(log(diferencias.ts), ylab="Log Primeras Diferencias", xlab="Periodo", col="red")
+plot(diff(log(diferencias.ts), 12),ylab="Log Segundas Diferencias Estacionales", xlab="Periodo", col="green")
+
+########### FUNCIONES DE AUTOCORRELACIÓN
+acf(diff(log(diferencias.ts),12)) #pedir el autocorrelograma, es estacional
+
+###
+diferencias2 <- read_excel("C:/Users/Sala-D9/Desktop/Series de tiempo/differences2.xlsx")
+diferencias.ts2 <- ts(diferencias2)
+
+plot(diferencias.ts2, ylab="Serie", xlab="Periodo", col="navy")
+plot(log(diferencias.ts2), ylab="Log Primeras Diferencias", xlab="Periodo", col="red")
+plot(diff(log(diferencias.ts2), 12),ylab="Log Segundas Diferencias ", xlab="Periodo", col="green")
+plot(diff(diff(log(diferencias.ts2), 12),1),ylab="Log Segundas Diferencias Estacionales", xlab="Periodo", col="pink")
+acf(diff(diff(log(diferencias.ts2),12),1))
